@@ -1,7 +1,6 @@
 package com.uber.authservices.domain.entity;
 
 import com.google.common.collect.Sets;
-import com.uber.authservices.domain.embeddable.Name;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,12 +17,22 @@ public class Passenger extends AbstractAuditableEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Embedded
-    private Name name;
+    @Column(nullable = false)
+    private String firstName;
 
+    @Column(nullable = false)
+    private String lastName;
+
+    private String preferredName;
+
+    @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private String phoneNumber;
+
+    @Column(nullable = false)
+    private String password;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "passenger")
     private Set<Booking> bookings;

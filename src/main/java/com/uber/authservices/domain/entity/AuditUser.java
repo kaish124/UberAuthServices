@@ -1,6 +1,5 @@
 package com.uber.authservices.domain.entity;
 
-import com.uber.authservices.domain.embeddable.Name;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,8 +16,13 @@ public class AuditUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Embedded
-    private Name name;
+    @Column(nullable = false)
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
+
+    private String preferredName;
 
     private String email;
 
