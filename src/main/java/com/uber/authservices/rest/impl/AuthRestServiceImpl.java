@@ -28,4 +28,15 @@ public class AuthRestServiceImpl implements AuthRestService {
     public ResponseEntity<?> signUp(@RequestBody PassengerSignupRequestDto passengerSignupRequestDto) {
         return new ResponseEntity<>(authService.signUp(passengerSignupRequestDto),  HttpStatus.CREATED);
     }
+
+    @Override
+    @PostMapping("/signin/passenger")
+    public ResponseEntity<?> signIn(@RequestBody PassengerSignupRequestDto passengerSignupRequestDto) {
+        try {
+            return new ResponseEntity<>(authService.signIn(passengerSignupRequestDto), HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+    }
 }

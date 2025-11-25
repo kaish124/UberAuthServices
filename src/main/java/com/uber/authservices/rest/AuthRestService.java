@@ -6,4 +6,6 @@ import org.springframework.http.ResponseEntity;
 public interface AuthRestService {
 
     ResponseEntity<?> signUp(PassengerSignupRequestDto  passengerSignupRequestDto);
+
+    ResponseEntity<?> signIn(PassengerSignupRequestDto  passengerSignupRequestDto);
 }

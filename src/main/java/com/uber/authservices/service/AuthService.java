@@ -5,4 +5,6 @@ import com.uber.authservices.dto.PassengerSignupRequestDto;
 
 public interface AuthService {
     PassengerBean signUp(PassengerSignupRequestDto passengerSignupRequestDto);
+
+    PassengerBean signIn(PassengerSignupRequestDto passengerSignupRequestDto);
 }

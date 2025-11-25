@@ -20,7 +20,7 @@ public class PassengerToPassengerSignupRequestDto implements MappingConfigurer{
     @Override
     public void configure(ModelMapper modelMapper) {
 
-        modelMapper.emptyTypeMap(PassengerSignupRequestDto.class, PassengerBean.class)
+        modelMapper.emptyTypeMap(PassengerSignupRequestDto.class, Passenger.class)
                 .addMappings(mapper -> {
                     mapper.using(ctx -> {
                         String password = (String) ctx.getSource();
@@ -29,7 +29,7 @@ public class PassengerToPassengerSignupRequestDto implements MappingConfigurer{
                         }
                         return null;
                     })
-                    .map(PassengerSignupRequestDto::getPassword, PassengerBean::setPassword);
-                });
+                    .map(PassengerSignupRequestDto::getPassword, Passenger::setPassword);
+                }).implicitMappings();
     }
 }
