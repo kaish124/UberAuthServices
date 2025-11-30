@@ -8,6 +8,7 @@ import com.uber.authservices.service.AuthService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,9 +38,9 @@ public class AuthServiceImpl implements AuthService {
     }
     @Override
     @Transactional(readOnly = false)
-    public PassengerBean signIn(PassengerSignupRequestDto passengerSignupRequestDto) {
-        Passenger passenger = passengerRepository.findByEmail(passengerSignupRequestDto.getEmail());
-        if(passenger == null || !passwordEncoder.matches(passengerSignupRequestDto.getPassword(), passenger.getPassword())) {
+    public PassengerBean signIn(User user) {
+        Passenger passenger = passengerRepository.findByEmail(user.getUsername());
+        if(passenger == null) {
             throw new BadCredentialsException("Invalid email or password");
         }
         return  modelMapper.map(passenger, PassengerBean.class);

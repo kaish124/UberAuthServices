@@ -7,13 +7,14 @@ import com.uber.authservices.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 @RestController
-@RequestMapping("services/v1/auth")
+@RequestMapping("/services/v1/auth")
 public class AuthRestServiceImpl implements AuthRestService {
 
     private final AuthService authService;
@@ -30,13 +31,12 @@ public class AuthRestServiceImpl implements AuthRestService {
     }
 
     @Override
-    @PostMapping("/signin/passenger")
-    public ResponseEntity<?> signIn(@RequestBody PassengerSignupRequestDto passengerSignupRequestDto) {
+    @GetMapping("/signin/passenger")
+    public ResponseEntity<?> signIn(Principal principal) {
         try {
-            return new ResponseEntity<>(authService.signIn(passengerSignupRequestDto), HttpStatus.OK);
+            return new ResponseEntity<>(authService.signIn((User) ((Authentication) principal).getPrincipal()), HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-
     }
 }
