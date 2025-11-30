@@ -31,7 +31,7 @@ public class AuthRestServiceImpl implements AuthRestService {
     }
 
     @Override
-    @GetMapping("/signin/passenger")
+    @PostMapping("/signin/passenger")
     public ResponseEntity<?> signIn(Principal principal) {
         try {
             return new ResponseEntity<>(authService.signIn((User) ((Authentication) principal).getPrincipal()), HttpStatus.OK);
